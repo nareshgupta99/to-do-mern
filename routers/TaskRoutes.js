@@ -3,7 +3,7 @@ const routes=express.Router();
 const Task=require("../Schema/task.model")
 
 routes.get("/",async (req,res)=>{
-  const tasks= await Task.find({taskName:"Mathmatecs"});
+  const tasks= await Task.find();
   console.log(tasks);
   res.json(tasks)
 })
@@ -23,10 +23,12 @@ routes.post("/",async (req,res)=>{
 
 routes.put("/update/:id",async (req,res)=>{
   const {id}=req.params;
-  const {status}=req.body;
+  console.log(id);
+  const {status}=req.body
   try{
 
     const task= await Task.findById(id);
+    console.log(task)
     task.status=status;
     const savedTask=await task.save();
     res.status(200).json(savedTask);

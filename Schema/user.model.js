@@ -16,7 +16,6 @@ const UserSchema=mongoose.Schema({
     },
     passwordResetToken:{
         type:String,
-        required: true
     }
 
 

@@ -11,6 +11,7 @@ const PORT= process.env.PORT || 8082
 app.use(express.json())  // getting the data from client
 
 app.use("/api/v1/task",require("./routers/TaskRoutes"));
+app.use("/api/v1/user",require("./routers/UserRoutes"));
 
 // app.use("/api/v1/user",require(""));
 
