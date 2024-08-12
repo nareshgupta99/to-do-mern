@@ -1,42 +1,25 @@
-const express=require("express");
-const routes=express.Router();
-const User=require("../Schema/user.model");
-const bcrypt = require('bcrypt');
+const express = require("express");
+const routes = express.Router();
+const { isAuthenticated } = require("../config/security.config");
+const { updatePassword, registerUser, login,genratePasswordResetToken }=require("../controllers/User.Controller");
+
+
+
 
 
 // to creating a user
-
-
-routes.post("/signup",async (req,res)=>{
-
-    const user=req.body;
-    const hash= await encryptPassword(user.password);
-    console.log(hash)
-    user.password=hash;
-    User.create(user);
-    res.status(200).json(user);
-
-})
+routes.post("/signup",registerUser);
 
 // login api
-
-//forgot password
-
+routes.post("/login", login);
 
 //update password
+routes.put('/update-password', isAuthenticated,updatePassword);
 
-// to get a user
-
-
-// function to hash a password
-
-const encryptPassword= async function( password){
-
-    const saltRounds = 10;
-    const hash=await bcrypt.hash(password, saltRounds);
-    return hash;
-}
+//forgot password
+routes.post("/forgot",genratePasswordResetToken);
 
 
 
-module.exports=routes;
+
+module.exports = routes;

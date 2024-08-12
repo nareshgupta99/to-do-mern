@@ -39,6 +39,20 @@ routes.put("/update/:id",async (req,res)=>{
 })
 
 
+// delete task
+routes.delete("/delete/:id",async(req, res)=>{
+  const {id} = req.params;
+  
+    const task = await Task.findIdAndDelete(id);
+    if(task){
+  res.status(200).json({message: "Task Deleted Successfully"});
+    }
+  else{
+    res.status(404).json({message: "Task not found"});
+  }
+
+})
+
 
 
 
