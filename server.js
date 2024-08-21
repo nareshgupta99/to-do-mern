@@ -1,15 +1,36 @@
 const express=require("express");
 const dotenv=require("dotenv");
 const mongoose=require("mongoose");
+const cors = require('cors');
+
+
+
+
+
 
 dotenv.config();
 const app=express();
 
 const PORT= process.env.PORT || 8082
 
+const CORSORIGIN=process.env.CORS;
 
-app.use(express.json())  // getting the data from client
 
+
+
+const corsOptions = {
+    origin: CORSORIGIN, // Replace with your client domain
+    optionsSuccessStatus: 200 // Some legacy browsers choke on 204
+  };
+
+  
+  
+  
+  
+  
+  app.use(express.json())  // getting the data from client
+  
+app.use(cors(corsOptions));
 app.use("/api/v1/task",require("./routers/TaskRoutes"));
 app.use("/api/v1/user",require("./routers/UserRoutes"));
 

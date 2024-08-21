@@ -16,6 +16,9 @@ const UserSchema=mongoose.Schema({
     },
     passwordResetToken:{
         type:String,
+    },
+    passwordResetTokenExpiry:{
+        type:Date
     }
 
 

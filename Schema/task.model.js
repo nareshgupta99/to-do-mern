@@ -4,7 +4,7 @@ const TaskSchema=mongoose.Schema({
     taskName:{
         type:String,
     },
-    desription:{
+    description:{
         type:String,
     },
     status:{
@@ -13,6 +13,10 @@ const TaskSchema=mongoose.Schema({
     priority:{
         type:Number,
         required: true
+    },
+    createdBy:{
+        type:mongoose.Schema.ObjectId,
+        ref:'User',
     }
 
 
