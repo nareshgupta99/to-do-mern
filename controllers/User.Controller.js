@@ -120,7 +120,7 @@ const resetPassword= asyncErrorHandler(async (req,res)=>{
         })
         return;
     }
-    const hash = await encryptPassword(user.password);
+    const hash = await encryptPassword(password);
     user.password = hash;
     await user.save();
 
