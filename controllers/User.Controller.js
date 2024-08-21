@@ -46,7 +46,14 @@ const registerUser = asyncErrorHandler(async (req, res) => {
 
 const login = asyncErrorHandler(async (req, res) => {
     const { password, email } = req.body;
+    console.log(email)
     const [user] = await User.find({ email });
+    if(!user){
+        res.status(401).json({
+            message:"user is not registered"
+        })
+        return;
+    }
     const result = await bcrypt.compare(password, user?.password);
     if (result) {
         const token = await genrateJwtToken({ email });
@@ -113,7 +120,8 @@ const resetPassword= asyncErrorHandler(async (req,res)=>{
         })
         return;
     }
-    user.password=password;
+    const hash = await encryptPassword(user.password);
+    user.password = hash;
     await user.save();
 
     res.status(200).json({
